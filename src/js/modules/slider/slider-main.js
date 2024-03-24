@@ -1,9 +1,8 @@
-export default class Slider {
-    constructor(page, btns){
-        this.page = document.querySelector(page);
-        this.slides = Array.from(this.page.children);
-        this.btns = Array.from(document.querySelectorAll(btns));
-        this.slideIndex = 1;
+import Slider from './slider';
+
+export default class MainSlider extends Slider {
+    constructor(page, btns) {
+        super(page, btns);
     }
 
     showSlides(n) {
@@ -27,7 +26,9 @@ export default class Slider {
             } else {
                 this.hanson.classList.remove('slideInUp');
             }
-        }catch (e) {}
+        }catch (e) {
+            console.log('error');
+        }
  
         this.slides.forEach(slide => {
             slide.style.display = 'none';
@@ -44,7 +45,9 @@ export default class Slider {
     render() {
         try {
             this.hanson = document.querySelector('.hanson');
-        } catch (e) {}
+        } catch (e) {
+            console.log('error');
+        }
 
         this.btns.forEach(item => {
             item.addEventListener('click', () => {
