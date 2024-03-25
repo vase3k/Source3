@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
         prev: '.showup__prev',
         next: '.showup__next',
         activeClass: 'card-active',
-        animate: true,
+        animate: true
     });
     showUpSlider.init();
 
@@ -32,8 +32,6 @@ window.addEventListener('DOMContentLoaded', () => {
         activeClass: 'feed__item-active'
     });
     feedSlider.init();
-
-
 
     const player = new VideoPlayer('.showup .play', '.overlay');
     player.init();

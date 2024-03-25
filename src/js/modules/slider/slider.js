@@ -1,7 +1,6 @@
 export default class Slider {
-    constructor({
-        container = null, 
-        btns = null, 
+    constructor({container = null,
+        btns = null,
         next = null, 
         prev = null,
         activeClass = '',
@@ -9,7 +8,7 @@ export default class Slider {
         autoplay } = {}){
         this.container = document.querySelector(container);
         this.slides = Array.from(this.container.children);
-        this.btns = Array.from(document.querySelectorAll(btns));
+        this.btns = document.querySelectorAll(btns);
         this.prev = document.querySelector(prev);
         this.next = document.querySelector(next);
         this.activeClass = activeClass;
@@ -17,5 +16,4 @@ export default class Slider {
         this.autoplay = autoplay;
         this.slideIndex = 1;
     }
-
 }

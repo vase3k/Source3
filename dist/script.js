@@ -82,7 +82,7 @@ class MainSlider extends _slider__WEBPACK_IMPORTED_MODULE_0__["default"] {
     }
     try {
       this.hanson.style.opacity = '0';
-      if (n === 3) {
+      if (n == 3) {
         this.hanson.classList.add('animated');
         setTimeout(() => {
           this.hanson.style.opacity = '1';
@@ -151,7 +151,6 @@ class MiniSlider extends _slider__WEBPACK_IMPORTED_MODULE_0__["default"] {
     if (!this.slides[0].closest('button')) {
       this.slides[0].classList.add(this.activeClass);
     }
-    this.slides[0].classList.add(this.activeClass);
     if (this.animate) {
       this.slides[0].querySelector('.card__title').style.opacity = '1';
       this.slides[0].querySelector('.card__controls-arrow').style.opacity = '1';
@@ -159,13 +158,13 @@ class MiniSlider extends _slider__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
   nextSlide() {
     if (this.slides[1].tagName == 'BUTTON' && this.slides[2].tagName == 'BUTTON') {
-      this.container.appendChild(this.slides[0]); // slide
-      this.container.appendChild(this.slides[1]); // btn
-      this.container.appendChild(this.slides[2]); // btn
+      this.container.appendChild(this.slides[0]); // Slide
+      this.container.appendChild(this.slides[1]); // Btn
+      this.container.appendChild(this.slides[2]); // Btn
       this.decorizeSlides();
     } else if (this.slides[1].tagName == 'BUTTON') {
-      this.container.appendChild(this.slides[0]); // slide
-      this.container.appendChild(this.slides[1]); // btn
+      this.container.appendChild(this.slides[0]); // Slide
+      this.container.appendChild(this.slides[1]); // Btn
       this.decorizeSlides();
     } else {
       this.container.appendChild(this.slides[0]);
@@ -187,10 +186,10 @@ class MiniSlider extends _slider__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
   init() {
     this.container.style.cssText = `
-        display: flex;
-        flex-wrap: wrap;
-        overflow: hidden;
-        align-items: flex-start;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            align-items: flex-start;
         `;
     this.bindTriggers();
     this.decorizeSlides();
@@ -224,7 +223,7 @@ class Slider {
   } = {}) {
     this.container = document.querySelector(container);
     this.slides = Array.from(this.container.children);
-    this.btns = Array.from(document.querySelectorAll(btns));
+    this.btns = document.querySelectorAll(btns);
     this.prev = document.querySelector(prev);
     this.next = document.querySelector(next);
     this.activeClass = activeClass;
