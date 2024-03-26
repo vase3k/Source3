@@ -64,9 +64,9 @@ class Form {
     this.forms = document.querySelectorAll(forms);
     this.inputs = document.querySelectorAll('input');
     this.message = {
-      loading: 'Loading',
-      success: 'Thank you! You will be contacted soon',
-      failure: 'Something went wrong...'
+      loading: 'Загрузка...',
+      success: 'Спасибо! Скоро мы с вами свяжемся!',
+      failure: 'Что-то пошло не так...'
     };
     this.path = 'assets/question.php';
   }
@@ -107,7 +107,7 @@ class Form {
         val = def;
       }
       this.value = matrix.replace(/./g, function (a) {
-        return /[_\d]/.test(a) && val.length ? val.charAt(i++) : i >= val.length ? '' : a;
+        return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a;
       });
       if (event.type === 'blur') {
         if (this.value.length == 2) {
@@ -132,8 +132,8 @@ class Form {
     return await res.text();
   }
   init() {
-    this.initMask();
     this.checkMailInputs();
+    this.initMask();
     this.forms.forEach(item => {
       item.addEventListener('submit', e => {
         e.preventDefault();
@@ -148,12 +148,14 @@ class Form {
         const formData = new FormData(item);
         this.postData(this.path, formData).then(res => {
           console.log(res);
-          statusMessage.textContent = this.statusMessage.success;
+          statusMessage.textContent = this.message.success;
         }).catch(() => {
           statusMessage.textContent = this.message.failure;
         }).finally(() => {
           this.clearInputs();
-          setTimeout(() => statusMessage.remove(), 6000);
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 6000);
         });
       });
     });
