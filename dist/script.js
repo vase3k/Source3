@@ -14,12 +14,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class Difference {
   constructor(oldOfficer, newOfficer, items) {
-    this.oldOfficer = document.querySelector(oldOfficer);
-    this.newOfficer = document.querySelector(newOfficer);
-    this.oldItems = this.oldOfficer.querySelectorAll(items);
-    this.newItems = this.newOfficer.querySelectorAll(items);
-    this.oldCounter = 0;
-    this.newCounter = 0;
+    try {
+      this.oldOfficer = document.querySelector(oldOfficer);
+      this.newOfficer = document.querySelector(newOfficer);
+      this.oldItems = this.oldOfficer.querySelectorAll(items);
+      this.newItems = this.newOfficer.querySelectorAll(items);
+      this.oldCounter = 0;
+      this.newCounter = 0;
+    } catch (e) {
+      e;
+    }
   }
   bindTriggers(container, items, counter) {
     container.querySelector('.plus').addEventListener('click', () => {
@@ -40,10 +44,14 @@ class Difference {
     });
   }
   init() {
-    this.hideItems(this.oldItems);
-    this.hideItems(this.newItems);
-    this.bindTriggers(this.oldOfficer, this.oldItems, this.oldCounter);
-    this.bindTriggers(this.newOfficer, this.newItems, this.newCounter);
+    try {
+      this.hideItems(this.oldItems);
+      this.hideItems(this.newItems);
+      this.bindTriggers(this.oldOfficer, this.oldItems, this.oldCounter);
+      this.bindTriggers(this.newOfficer, this.newItems, this.newCounter);
+    } catch (e) {
+      e;
+    }
   }
 }
 
@@ -79,6 +87,7 @@ class Form {
     const mailInputs = document.querySelectorAll('[type="email"]');
     mailInputs.forEach(input => {
       input.addEventListener('keypress', function (e) {
+        // eslint-disable-next-line no-useless-escape
         if (e.key.match(/[^a-z 0-9 @ \.]/ig)) {
           e.preventDefault();
         }
@@ -266,21 +275,25 @@ class MainSlider extends _slider__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
   render() {
     try {
-      this.hanson = document.querySelector('.hanson');
+      try {
+        this.hanson = document.querySelector('.hanson');
+      } catch (e) {
+        console.log('error');
+      }
+      this.btns.forEach(item => {
+        item.addEventListener('click', () => {
+          this.plusSlides(1);
+        });
+        item.parentNode.previousElementSibling.addEventListener('click', e => {
+          e.preventDefault();
+          this.slideIndex = 1;
+          this.showSlides(this.slideIndex);
+        });
+      });
+      this.showSlides(this.slideIndex);
     } catch (e) {
-      console.log('error');
+      e;
     }
-    this.btns.forEach(item => {
-      item.addEventListener('click', () => {
-        this.plusSlides(1);
-      });
-      item.parentNode.previousElementSibling.addEventListener('click', e => {
-        e.preventDefault();
-        this.slideIndex = 1;
-        this.showSlides(this.slideIndex);
-      });
-    });
-    this.showSlides(this.slideIndex);
   }
 }
 
@@ -347,16 +360,20 @@ class MiniSlider extends _slider__WEBPACK_IMPORTED_MODULE_0__["default"] {
     });
   }
   init() {
-    this.container.style.cssText = `
+    try {
+      this.container.style.cssText = `
             display: flex;
             flex-wrap: wrap;
             overflow: hidden;
             align-items: flex-start;
-        `;
-    this.bindTriggers();
-    this.decorizeSlides();
-    if (this.autoplay) {
-      setInterval(() => this.nextSlide(), 5000);
+            `;
+      this.bindTriggers();
+      this.decorizeSlides();
+      if (this.autoplay) {
+        setInterval(() => this.nextSlide(), 5000);
+      }
+    } catch (e) {
+      e;
     }
   }
 }
@@ -384,7 +401,11 @@ class Slider {
     autoplay
   } = {}) {
     this.container = document.querySelector(container);
-    this.slides = Array.from(this.container.children);
+    try {
+      this.slides = Array.from(this.container.children);
+    } catch (e) {
+      e;
+    }
     this.btns = document.querySelectorAll(btns);
     this.prev = document.querySelector(prev);
     this.next = document.querySelector(next);

@@ -21,6 +21,7 @@ export default class Form {
     
         mailInputs.forEach(input => {
             input.addEventListener('keypress', function(e) {
+                // eslint-disable-next-line no-useless-escape
                 if (e.key.match(/[^a-z 0-9 @ \.]/ig)) {
                     e.preventDefault();
                 }
