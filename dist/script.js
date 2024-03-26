@@ -16,7 +16,7 @@ class Difference {
   constructor(oldOfficer, newOfficer, items) {
     this.oldOfficer = document.querySelector(oldOfficer);
     this.newOfficer = document.querySelector(newOfficer);
-    this.oldItems = this.newOfficer.querySelectorAll(items);
+    this.oldItems = this.oldOfficer.querySelectorAll(items);
     this.newItems = this.newOfficer.querySelectorAll(items);
     this.oldCounter = 0;
     this.newCounter = 0;
