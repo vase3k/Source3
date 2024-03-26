@@ -21,10 +21,11 @@
 		"browser-sync": "^2.29.3",
 		"core-js": "^3.31.0",
 		"gulp": "^4.0.2",
-		"webpack": "^5.86.0",
+		"webpack": "^5.91.0",
 		"webpack-stream": "^7.0.0"
 	},
 	"dependencies": {
+		"bable-loader": "^0.0.1-security",
 		"jquery": "^3.7.0",
 		"slick-carousel": "^1.8.1"
 	}
