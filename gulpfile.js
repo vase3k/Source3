@@ -1,20 +1,22 @@
 'use strict';
 
-import { task, src, dest, watch as _watch, parallel } from 'gulp';
-import webpack from 'webpack-stream';
-import { stream, reload, init } from 'browser-sync';
+// eslint-disable-next-line no-undef
+const gulp = require('gulp');
+// eslint-disable-next-line no-undef
+const webpack = require('webpack-stream');
+// eslint-disable-next-line no-undef
+const browsersync = require('browser-sync');
 
 const dist = './dist/';
-// const dist = "/Applications/MAMP/htdocs/test"; // Ссылка на вашу папку на сервере
 
-task('copy-html', () => {
-    return src('./src/*.html')
-        .pipe(dest(dist))
-        .pipe(stream());
+gulp.task('copy-html', () => {
+    return gulp.src('./src/*.html')
+        .pipe(gulp.dest(dist))
+        .pipe(browsersync.stream());
 });
 
-task('build-js', () => {
-    return src('./src/js/main.js')
+gulp.task('build-js', () => {
+    return gulp.src('./src/js/main.js')
         .pipe(webpack({
             mode: 'development',
             output: {
@@ -41,18 +43,18 @@ task('build-js', () => {
                 ]
             }
         }))
-        .pipe(dest(dist))
-        .on('end', reload);
+        .pipe(gulp.dest(dist))
+        .on('end', browsersync.reload);
 });
 
-task('copy-assets', () => {
-    return src('./src/assets/**/*.*')
-        .pipe(dest(dist + '/assets'))
-        .on('end', reload);
+gulp.task('copy-assets', () => {
+    return gulp.src('./src/assets/**/*.*')
+        .pipe(gulp.dest(dist + '/assets'))
+        .on('end', browsersync.reload);
 });
 
-task('watch', () => {
-    init({
+gulp.task('watch', () => {
+    browsersync.init({
         server: {
             baseDir: './dist/',
             serveStaticOptions: {
@@ -63,15 +65,15 @@ task('watch', () => {
         notify: true
     });
     
-    _watch('./src/*.html', parallel('copy-html'));
-    _watch('./src/assets/**/*.*', parallel('copy-assets'));
-    _watch('./src/js/**/*.js', parallel('build-js'));
+    gulp.watch('./src/*.html', gulp.parallel('copy-html'));
+    gulp.watch('./src/assets/**/*.*', gulp.parallel('copy-assets'));
+    gulp.watch('./src/js/**/*.js', gulp.parallel('build-js'));
 });
 
-task('build', parallel('copy-html', 'copy-assets', 'build-js'));
+gulp.task('build', gulp.parallel('copy-html', 'copy-assets', 'build-js'));
 
-task('build-prod-js', () => {
-    return src('./src/js/main.js')
+gulp.task('build-prod-js', () => {
+    return gulp.src('./src/js/main.js')
         .pipe(webpack({
             mode: 'production',
             output: {
@@ -95,7 +97,7 @@ task('build-prod-js', () => {
                 ]
             }
         }))
-        .pipe(dest(dist));
+        .pipe(gulp.dest(dist));
 });
 
-task('default', parallel('watch', 'build'));
+gulp.task('default', gulp.parallel('watch', 'build'));
